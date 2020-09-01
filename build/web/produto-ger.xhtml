@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:decorate xmlns="http://www.w3.org/1999/xhtml"
+             xmlns:h="http://xmlns.jcp.org/jsf/html"
+             xmlns:p="http://primefaces.org/ui"
+             xmlns:f="http://xmlns.jcp.org/jsf/core"
+             xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+             template="template.xhtml"
+             xmlns:sc="http://xmlns.jcp.org/jsf/composite/sccomp">
+
+    <h:form>
+        <p:messages showDetail="true"></p:messages>
+        <p:fieldset legend="Produtos">
+            <sc:toolbarCrud crudBean="#{produtoBean}">
+                
+            </sc:toolbarCrud>
+            <p:panelGrid columns="2" rendered="#{produtoBean.busca == false}">
+                <h:outputLabel value="Descrição"></h:outputLabel>
+                <p:inputText value="#{produtoBean.entidade.descricao}" required="true" requiredMessage="Preencha a descrição"></p:inputText>
+
+                <h:outputLabel value="Fabricante"></h:outputLabel>
+                <p:inputText value="#{produtoBean.entidade.fabricante}"></p:inputText>
+
+                
+            </p:panelGrid>
+            <p:dataTable value="#{produtoBean.entidades}" var="prods" rendered="#{produtoBean.busca == true}">
+                <p:column style="width: 25%; text-align:center" headerText="ID" sortBy="#{prods.id}" filterBy="#{prods.id}">
+                    <h:outputText value="#{prods.id}"></h:outputText>
+                </p:column>
+                <p:column style="width: 25%; text-align:center" headerText="Descrição" sortBy="#{prods.descricao}" filterBy="#{prods.descricao}">
+                    <h:outputText value="#{prods.descricao}"></h:outputText>
+                </p:column>
+                <p:column style="width: 25%; text-align:center" headerText="Fabricante" sortBy="#{prods.fabricante}" filterBy="#{prods.fabricante}">
+                    <h:outputText value="#{prods.fabricante}"></h:outputText>
+                </p:column>
+                
+                <p:column style="width: 25%; text-align:center">
+                    <p:commandButton icon="ui-icon-pencil" action="#{produtoBean.editar(prods)}" update="@form">
+                    <p:confirm header="Confirmação" message="Deseja editar?" icon="ui-icon-alert"/> 
+                    </p:commandButton>
+                    <p:commandButton  icon="ui-icon-trash" action="#{produtoBean.deletar(prods)}" update="@form">
+                    <p:confirm header="Confirmação" message="Deseja excluir?" icon="ui-icon-alert"/> 
+                    </p:commandButton>
+                </p:column>
+               
+            </p:dataTable>
+            <p:confirmDialog global="true">
+
+                <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"></p:commandButton>
+
+                <p:commandButton value="Nao" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"></p:commandButton>
+
+            </p:confirmDialog>
+        </p:fieldset>
+    </h:form>
+</ui:decorate>
+
+
+
