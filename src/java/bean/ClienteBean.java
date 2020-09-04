@@ -10,8 +10,10 @@ import com.google.gson.reflect.TypeToken;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.WebResource;
 import dao.ClienteDao;
+import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.model.SelectItem;
 import model.Cliente;
 /**
  *
@@ -22,7 +24,7 @@ import model.Cliente;
 public class ClienteBean extends GenBean <Cliente, ClienteDao> {
     
     
-
+    
     private ClienteDao clienteDao;
     
     @Override
@@ -56,33 +58,5 @@ public class ClienteBean extends GenBean <Cliente, ClienteDao> {
         
     }
 
-    public ClienteDao getClienteDao() {
-        return clienteDao;
-    }
-
-    public void setClienteDao(ClienteDao clienteDao) {
-        this.clienteDao = clienteDao;
-    }
-
-    public Client getC() {
-        return c;
-    }
-
-    public void setC(Client c) {
-        this.c = c;
-    }
-
-    public Gson getGson() {
-        return gson;
-    }
-
-    public void setGson(Gson gson) {
-        this.gson = gson;
-    }
-
-  
-
-  
-    
-    
+   
 }

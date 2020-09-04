@@ -7,7 +7,9 @@ package bean;
 
 import dao.ProdutoDao;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
+
+
 import model.Produto;
 
 /**
@@ -15,7 +17,7 @@ import model.Produto;
  * @author viviane.wehrmeister
  */
 @ManagedBean
-@SessionScoped
+@ViewScoped
 public class ProdutoBean extends GenBean<Produto, ProdutoDao> {
     
     private ProdutoDao produtoDao;

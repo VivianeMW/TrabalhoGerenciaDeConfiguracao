@@ -3,6 +3,8 @@
   <persistence-unit name="TrabVersao" transaction-type="RESOURCE_LOCAL">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <class>model.Produto</class>
+    <class>model.Cliente</class>
+    <class>model.Pedido</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/Conteste"/>

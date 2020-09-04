@@ -10,31 +10,31 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
-import model.Cliente;
+import model.Pedido;
 
 /**
  *
  * @author Viviane
  */
-public class ClienteDao implements GenDao<Cliente> {
+public class PedidoDao implements GenDao<Pedido> {
     
     private static final long serialVersionUID = 1L;
     
-    private Cliente cliente=new Cliente();
+     private Pedido pedido=new Pedido();
 
     private static EntityManagerFactory emf;
     private static EntityManager em;
 
-    public ClienteDao() {
+    public PedidoDao() {
         super();
-        this.cliente = cliente;
+        this.pedido = pedido;
         emf = javax.persistence.Persistence.createEntityManagerFactory("TrabVersao");
         em = emf.createEntityManager();
     }
 
     
     @Override
-    public Cliente salvar(Cliente p) throws ErroSistema{
+    public Pedido salvar(Pedido p) throws ErroSistema{
      em.getTransaction().begin();
 
         try {
@@ -51,14 +51,14 @@ public class ClienteDao implements GenDao<Cliente> {
    
     
     @Override
-    public void deletar(Cliente p) throws ErroSistema{
+    public void deletar(Pedido p) throws ErroSistema{
         em.getTransaction().begin();
         Long i=p.getId();
-        cliente=em.find(Cliente.class, i);
-        cliente.getId();
+        pedido=em.find(Pedido.class, i);
+        pedido.getId();
         try {
   
-            em.remove(cliente);
+            em.remove(pedido);
             em.getTransaction().commit();
 
         } catch (Exception e) {
@@ -68,20 +68,18 @@ public class ClienteDao implements GenDao<Cliente> {
         
     }
 
-    public Cliente consultarPorId(Long id) {
-        Query query = em.createQuery("SELECT c FROM Cliente c WHERE c.id = :id");
+    public Pedido consultarPorId(int id) {
+        Query query = em.createQuery("SELECT c FROM Pedido c WHERE c.id = :id");
         query.setParameter("id", id);
-        Cliente resultBean = (Cliente) query.getSingleResult();
+        Pedido resultBean = (Pedido) query.getSingleResult();
         return resultBean;    
     }
     
     @Override
-    public List<Cliente> listar() throws ErroSistema {
-        List<Cliente> pr;
-        pr=em.createQuery("SELECT e FROM Cliente e").getResultList();
+    public List<Pedido> listar() throws ErroSistema {
+        List<Pedido> pr;
+        pr=em.createQuery("SELECT e FROM Pedido e").getResultList();
         return pr;
     }
-    
-
     
 }

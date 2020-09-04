@@ -68,7 +68,7 @@ public class ProdutoDao implements GenDao<Produto> {
         
     }
 
-    public Produto consultarPorId(int id) {
+    public Produto consultarPorId(Long id) {
         Query query = em.createQuery("SELECT c FROM Produto c WHERE c.id = :id");
         query.setParameter("id", id);
         Produto resultBean = (Produto) query.getSingleResult();
