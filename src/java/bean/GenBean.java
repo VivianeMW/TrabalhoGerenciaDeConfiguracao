@@ -20,15 +20,16 @@ import javax.faces.context.FacesContext;
 public abstract class GenBean<E, D extends GenDao> {
 
     private String estadoTela = "buscar";//Inserir, Editar, Buscar
-    
+
     private E entidade;
     private List<E> entidades;
-    
-    public void novo(){
-        entidade =  criarNovaEntidade();
+
+    public void novo() {
+        entidade = criarNovaEntidade();
         mudarParaInseri();
     }
-    public void salvar(){
+
+    public void salvar() {
         try {
             getDao().salvar(entidade);
             entidade = criarNovaEntidade();
@@ -40,11 +41,13 @@ public abstract class GenBean<E, D extends GenDao> {
             adicionarMensagem(ex.getMessage(), FacesMessage.SEVERITY_ERROR);
         }
     }
-    public void editar(E entidade){
+
+    public void editar(E entidade) {
         this.entidade = entidade;
         mudarParaEdita();
     }
-    public void deletar(E entidade){
+
+    public void deletar(E entidade) {
         try {
             getDao().deletar(entidade);
             entidades.remove(entidade);
@@ -54,14 +57,15 @@ public abstract class GenBean<E, D extends GenDao> {
             adicionarMensagem(ex.getMessage(), FacesMessage.SEVERITY_ERROR);
         }
     }
-    public void buscar(){
-        if(isBusca() == false){
-           mudarParaBusca();
-           return;
+
+    public void buscar() {
+        if (isBusca() == false) {
+            mudarParaBusca();
+            return;
         }
         try {
             entidades = getDao().listar();
-            if(entidades == null || entidades.size() < 1){
+            if (entidades == null || entidades.size() < 1) {
                 adicionarMensagem("Não temos nada cadastrado!", FacesMessage.SEVERITY_WARN);
             }
         } catch (ErroSistema ex) {
@@ -69,12 +73,12 @@ public abstract class GenBean<E, D extends GenDao> {
             adicionarMensagem(ex.getMessage(), FacesMessage.SEVERITY_ERROR);
         }
     }
-    
-    public void adicionarMensagem(String mensagem, FacesMessage.Severity tipoErro){
+
+    public void adicionarMensagem(String mensagem, FacesMessage.Severity tipoErro) {
         FacesMessage fm = new FacesMessage(tipoErro, mensagem, null);
         FacesContext.getCurrentInstance().addMessage(null, fm);
     }
-    
+
     //getters e setters
     public E getEntidade() {
         return entidade;
@@ -91,30 +95,35 @@ public abstract class GenBean<E, D extends GenDao> {
     public void setEntidades(List<E> entidades) {
         this.entidades = entidades;
     }
-    
+
     //Responsvel por criar os métodos nas classes bean
     public abstract D getDao();
+
     public abstract E criarNovaEntidade();
-    
+
     //Metodos para controle da tela
-    public boolean isInseri(){
+    public boolean isInseri() {
         return "inserir".equals(estadoTela);
     }
-    public boolean isEdita(){
+
+    public boolean isEdita() {
         return "editar".equals(estadoTela);
     }
-    public boolean isBusca(){
+
+    public boolean isBusca() {
         return "buscar".equals(estadoTela);
     }
-    public void mudarParaInseri(){
+
+    public void mudarParaInseri() {
         estadoTela = "inserir";
     }
-    public void mudarParaEdita(){
+
+    public void mudarParaEdita() {
         estadoTela = "editar";
     }
-    public void mudarParaBusca(){
+
+    public void mudarParaBusca() {
         estadoTela = "buscar";
     }
-    
-}
 
+}

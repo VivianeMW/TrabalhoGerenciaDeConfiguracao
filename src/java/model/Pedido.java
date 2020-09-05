@@ -23,36 +23,32 @@ import javax.persistence.Transient;
  *
  * @author Viviane
  */
-
 @Entity
-@Table(name="pedido")
+@Table(name = "pedido")
 public class Pedido implements Serializable {
-    
+
     private static final Long serialVersionUID = 1L;
-    
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name="id")
+    @Column(name = "id")
     private Long id;
-    
-    @Column(name="valorTotal")
+
+    @Column(name = "valorTotal")
     private double valorTotal;
-    
+
     @Transient
     private Produto produto;
-    
+
     @ManyToOne
     private Cliente cliente;
-    
+
     @OneToMany
-    private List<Produto> produtos=new ArrayList<Produto>();
+    private List<Item> itensPedido = new ArrayList<Item>();
 
     public Pedido() {
-      
-    }
 
-   
+    }
 
     public Long getId() {
         return id;
@@ -66,8 +62,6 @@ public class Pedido implements Serializable {
         this.produto = produto;
     }
 
-   
-
     public void setId(Long id) {
         this.id = id;
     }
@@ -80,17 +74,6 @@ public class Pedido implements Serializable {
         this.cliente = cliente;
     }
 
-   
-    
-
-    public List<Produto> getProdutos() {
-        return produtos;
-    }
-
-    public void setProdutos(List<Produto> produtos) {
-        this.produtos = produtos;
-    }
-
     public double getValorTotal() {
         return valorTotal;
     }
@@ -99,14 +82,22 @@ public class Pedido implements Serializable {
         this.valorTotal = valorTotal;
     }
 
+    public List<Item> getItensPedido() {
+        return itensPedido;
+    }
+
+    public void setItensPedido(List<Item> itensPedido) {
+        this.itensPedido = itensPedido;
+    }
+
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 13 * hash + Objects.hashCode(this.id);
-        hash = 13 * hash + (int) (Double.doubleToLongBits(this.valorTotal) ^ (Double.doubleToLongBits(this.valorTotal) >>> 32));
-        hash = 13 * hash + Objects.hashCode(this.produto);
-        hash = 13 * hash + Objects.hashCode(this.cliente);
-        hash = 13 * hash + Objects.hashCode(this.produtos);
+        int hash = 3;
+        hash = 73 * hash + Objects.hashCode(this.id);
+        hash = 73 * hash + (int) (Double.doubleToLongBits(this.valorTotal) ^ (Double.doubleToLongBits(this.valorTotal) >>> 32));
+        hash = 73 * hash + Objects.hashCode(this.produto);
+        hash = 73 * hash + Objects.hashCode(this.cliente);
+        hash = 73 * hash + Objects.hashCode(this.itensPedido);
         return hash;
     }
 
@@ -134,17 +125,10 @@ public class Pedido implements Serializable {
         if (!Objects.equals(this.cliente, other.cliente)) {
             return false;
         }
-        if (!Objects.equals(this.produtos, other.produtos)) {
+        if (!Objects.equals(this.itensPedido, other.itensPedido)) {
             return false;
         }
         return true;
     }
 
-
-
- 
-    
-    
-    
-    
 }

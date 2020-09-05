@@ -19,42 +19,41 @@ import javax.persistence.Table;
  * @author Viviane
  */
 @Entity
-@Table(name="cliente")
+@Table(name = "cliente")
 public class Cliente implements Serializable {
-    
-    
+
     private static final Long serialVersionUID = 1L;
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name="id")
+    @Column(name = "id")
     private Long id;
-    
-    @Column(name="nome")
+
+    @Column(name = "nome")
     private String nome;
-    
-    @Column(name="cpf")
+
+    @Column(name = "cpf")
     private String cpf;
-    
-    @Column(name="logradouro")
+
+    @Column(name = "logradouro")
     private String logradouro;
-    
-    @Column(name="numero")
+
+    @Column(name = "numero")
     private String numero;
-    
-    @Column(name="bairro")
+
+    @Column(name = "bairro")
     private String bairro;
-    
-    @Column(name="localidade")
+
+    @Column(name = "localidade")
     private String localidade;
-    
-    @Column(name="cep")
+
+    @Column(name = "cep")
     private String cep;
-    
-    @Column(name="uf")
+
+    @Column(name = "uf")
     private String uf;
-    
-    @Column(name="desconto")
+
+    @Column(name = "desconto")
     private double desconto;
 
     public Cliente() {
@@ -67,7 +66,7 @@ public class Cliente implements Serializable {
     public void setDesconto(double desconto) {
         this.desconto = desconto;
     }
-    
+
     public Long getId() {
         return id;
     }
@@ -200,8 +199,4 @@ public class Cliente implements Serializable {
         }
         return true;
     }
-
-   
-
-    
 }

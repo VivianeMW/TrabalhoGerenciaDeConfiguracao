@@ -16,31 +16,30 @@ import model.Produto;
  *
  * @author Viviane
  */
-@FacesConverter(forClass=Produto.class)
+@FacesConverter(forClass = Produto.class)
 public class ProdutoConverter implements Converter {
 
     @Override
     public Object getAsObject(FacesContext fc, UIComponent uic, String string) {
-    if(string != null && string.trim().length()>0){
-        Long codigo=Long.valueOf(string);
-        ProdutoDao produtoDao=new ProdutoDao();
-        return produtoDao.consultarPorId(codigo);
-    }
-
+        if (string != null && string.trim().length() > 0) {
+            Long codigo = Long.valueOf(string);
+            ProdutoDao produtoDao = new ProdutoDao();
+            return produtoDao.consultarPorId(codigo);
+        }
 
 //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    return null;
+        return null;
     }
 
     @Override
     public String getAsString(FacesContext fc, UIComponent uic, Object oproduto) {
-     if(oproduto != null){
-            Produto produto = (Produto)oproduto;
+        if (oproduto != null) {
+            Produto produto = (Produto) oproduto;
             return produto.getId().toString();
         }
-        
+
 //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-     return null;
+        return null;
     }
-    
+
 }

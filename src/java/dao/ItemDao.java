@@ -11,30 +11,30 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
-import model.Pedido;
+import model.Item;
 
 /**
  *
  * @author Viviane
  */
-public class PedidoDao implements GenDao<Pedido>, Serializable {
+public class ItemDao implements GenDao<Item>, Serializable {
 
-    private static final long serialVersionUID = 1L;
+    private static final Long serialVersionUID = 1L;
 
-    private Pedido pedido = new Pedido();
+    private Item produto = new Item();
 
     private static EntityManagerFactory emf;
     private static EntityManager em;
 
-    public PedidoDao() {
+    public ItemDao() {
         super();
-        this.pedido = pedido;
+        this.produto = produto;
         emf = javax.persistence.Persistence.createEntityManagerFactory("TrabVersao");
         em = emf.createEntityManager();
     }
 
     @Override
-    public Pedido salvar(Pedido p) throws ErroSistema {
+    public Item salvar(Item p) throws ErroSistema {
         em.getTransaction().begin();
 
         try {
@@ -49,14 +49,14 @@ public class PedidoDao implements GenDao<Pedido>, Serializable {
     }
 
     @Override
-    public void deletar(Pedido p) throws ErroSistema {
+    public void deletar(Item p) throws ErroSistema {
         em.getTransaction().begin();
         Long i = p.getId();
-        pedido = em.find(Pedido.class, i);
-        pedido.getId();
+        produto = em.find(Item.class, i);
+        produto.getId();
         try {
 
-            em.remove(pedido);
+            em.remove(produto);
             em.getTransaction().commit();
 
         } catch (Exception e) {
@@ -66,18 +66,17 @@ public class PedidoDao implements GenDao<Pedido>, Serializable {
 
     }
 
-    public Pedido consultarPorId(int id) {
-        Query query = em.createQuery("SELECT c FROM Pedido c WHERE c.id = :id");
+    public Item consultarPorId(Long id) {
+        Query query = em.createQuery("SELECT c FROM Item c WHERE c.id = :id");
         query.setParameter("id", id);
-        Pedido resultBean = (Pedido) query.getSingleResult();
+        Item resultBean = (Item) query.getSingleResult();
         return resultBean;
     }
 
     @Override
-    public List<Pedido> listar() throws ErroSistema {
-        List<Pedido> pr;
-        pr = em.createQuery("SELECT e FROM Pedido e").getResultList();
+    public List<Item> listar() throws ErroSistema {
+        List<Item> pr;
+        pr = em.createQuery("SELECT e FROM Item e").getResultList();
         return pr;
     }
-
 }

@@ -11,98 +11,98 @@
         <p:messages showDetail="true"></p:messages>
         <p:fieldset legend="Clientes">
             <sc:toolbarCrud crudBean="#{clienteBean}">
-                
+
             </sc:toolbarCrud>
             <p:panelGrid columns="2" rendered="#{clienteBean.busca == false}">
-                
+
                 <h:outputLabel value="Nome"></h:outputLabel>
                 <p:inputText id="nome" value="#{clienteBean.entidade.nome}"></p:inputText>
 
                 <h:outputLabel value="CPF"></h:outputLabel>
                 <p:inputMask id="cpf" value="#{clienteBean.entidade.cpf}" mask="999.999.999-99"></p:inputMask>
-                   
+
                 <h:outputLabel value="Desconto"></h:outputLabel>
                 <h:panelGroup>
-                <p:inputText id="desco" value="#{clienteBean.entidade.desconto}" ></p:inputText>
-                <h:outputLabel value="%"></h:outputLabel>
+                    <p:inputText id="desco" value="#{clienteBean.entidade.desconto}" ></p:inputText>
+                    <h:outputLabel value="%"></h:outputLabel>
                 </h:panelGroup>
-                
+
                 <h:outputLabel value="CEP"></h:outputLabel>
                 <p:inputMask id="cep" value="#{clienteBean.entidade.cep}" mask="99.999-999">
                     <p:ajax event="change" process="fr:cep" update="fr:bairro fr:rua fr:cidade fr:estado" listener="#{clienteBean.consultaCep()}"/>
-                
+
                 </p:inputMask>
-                
+
                 <h:outputLabel value="Logradouro"></h:outputLabel>
                 <p:inputText id="rua" value="#{clienteBean.entidade.logradouro}"></p:inputText>
-                
+
                 <h:outputLabel value="Número"></h:outputLabel>
                 <p:inputText id="numero" value="#{clienteBean.entidade.numero}"></p:inputText>
-                
+
                 <h:outputLabel value="Bairro"></h:outputLabel>
                 <p:inputText id="bairro" value="#{clienteBean.entidade.bairro}"></p:inputText>
-                
+
                 <h:outputLabel value="Cidade"></h:outputLabel>
                 <p:inputText id="cidade" value="#{clienteBean.entidade.localidade}"></p:inputText>
-                
-                
-                
+
+
+
                 <h:outputLabel value="Estado"></h:outputLabel>
                 <p:inputText id="estado" value="#{clienteBean.entidade.uf}"></p:inputText>
 
-                
+
             </p:panelGrid>
             <p:dataTable value="#{clienteBean.entidades}" var="clies" rendered="#{clienteBean.busca == true}">
-                
+
                 <p:column style="width: 10%; text-align:center" headerText="ID" sortBy="#{clies.id}" filterBy="#{clies.id}">
                     <h:outputText value="#{clies.id}"></h:outputText>
                 </p:column>
-                
+
                 <p:column style="width: 10%; text-align:center" headerText="Nome" sortBy="#{clies.nome}" filterBy="#{clies.nome}">
                     <h:outputText value="#{clies.nome}"></h:outputText>
                 </p:column>
-                
+
                 <p:column style="width: 10%; text-align:center" headerText="Desconto em %" sortBy="#{clies.desconto}" filterBy="#{clies.desconto}">
                     <h:outputText value="#{clies.desconto}"></h:outputText>
                 </p:column>
-                
+
                 <p:column style="width: 10%; text-align:center" headerText="CPF" sortBy="#{clies.cpf}" filterBy="#{clies.cpf}">
                     <h:outputText value="#{clies.cpf}"></h:outputText>
                 </p:column>
-                
+
                 <p:column style="width: 10%; text-align:center" headerText="Logradouro" sortBy="#{clies.logradouro}">
                     <h:outputText value="#{clies.logradouro}"></h:outputText>
                 </p:column>
-                
+
                 <p:column style="width: 10%; text-align:center" headerText="Número" sortBy="#{clies.numero}">
                     <h:outputText value="#{clies.numero}"></h:outputText>
                 </p:column>
-                
+
                 <p:column style="width: 10%; text-align:center" headerText="Bairro" sortBy="#{clies.bairro}">
                     <h:outputText value="#{clies.bairro}"></h:outputText>
                 </p:column>
-                
+
                 <p:column style="width: 10%; text-align:center" headerText="Cidade" sortBy="#{clies.localidade}">
                     <h:outputText value="#{clies.localidade}"></h:outputText>
                 </p:column>
-                
+
                 <p:column style="width: 10%; text-align:center" headerText="Estado" sortBy="#{clies.uf}">
                     <h:outputText value="#{clies.uf}"></h:outputText>
                 </p:column>
-                
-                 <p:column style="width: 10%; text-align:center" headerText="CEP" sortBy="#{clies.cep}">
+
+                <p:column style="width: 10%; text-align:center" headerText="CEP" sortBy="#{clies.cep}">
                     <h:outputText value="#{clies.cep}"></h:outputText>
                 </p:column>
-                
+
                 <p:column style="width: 10%; text-align:center">
                     <p:commandButton icon="ui-icon-pencil" action="#{clienteBean.editar(clies)}" update="@form">
-                    <p:confirm header="Confirmação" message="Deseja editar?" icon="ui-icon-alert"/> 
+                        <p:confirm header="Confirmação" message="Deseja editar?" icon="ui-icon-alert"/> 
                     </p:commandButton>
                     <p:commandButton  icon="ui-icon-trash" action="#{clienteBean.deletar(clies)}" update="@form">
-                    <p:confirm header="Confirmação" message="Deseja excluir?" icon="ui-icon-alert"/> 
+                        <p:confirm header="Confirmação" message="Deseja excluir?" icon="ui-icon-alert"/> 
                     </p:commandButton>
                 </p:column>
-               
+
             </p:dataTable>
             <p:confirmDialog global="true">
 

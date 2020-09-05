@@ -17,11 +17,11 @@ import model.Produto;
  *
  * @author viviane.wehrmeister
  */
-public class ProdutoDao implements GenDao<Produto>,Serializable{
-     private static final Long serialVersionUID = 1L;
-    
-    
-     private Produto produto=new Produto();
+public class ProdutoDao implements GenDao<Produto>, Serializable {
+
+    private static final Long serialVersionUID = 1L;
+
+    private Produto produto = new Produto();
 
     private static EntityManagerFactory emf;
     private static EntityManager em;
@@ -33,10 +33,9 @@ public class ProdutoDao implements GenDao<Produto>,Serializable{
         em = emf.createEntityManager();
     }
 
-    
     @Override
-    public Produto salvar(Produto p) throws ErroSistema{
-     em.getTransaction().begin();
+    public Produto salvar(Produto p) throws ErroSistema {
+        em.getTransaction().begin();
 
         try {
             em.merge(p);
@@ -45,20 +44,18 @@ public class ProdutoDao implements GenDao<Produto>,Serializable{
         } catch (Exception e) {
             em.getTransaction().rollback();
         }
-       
+
         return p;
     }
 
-   
-    
     @Override
-    public void deletar(Produto p) throws ErroSistema{
+    public void deletar(Produto p) throws ErroSistema {
         em.getTransaction().begin();
-        Long i=p.getId();
-        produto=em.find(Produto.class, i);
+        Long i = p.getId();
+        produto = em.find(Produto.class, i);
         produto.getId();
         try {
-  
+
             em.remove(produto);
             em.getTransaction().commit();
 
@@ -66,20 +63,20 @@ public class ProdutoDao implements GenDao<Produto>,Serializable{
             e.printStackTrace();
             em.getTransaction().rollback();
         }
-        
+
     }
 
     public Produto consultarPorId(Long id) {
         Query query = em.createQuery("SELECT c FROM Produto c WHERE c.id = :id");
         query.setParameter("id", id);
         Produto resultBean = (Produto) query.getSingleResult();
-        return resultBean;    
+        return resultBean;
     }
-    
+
     @Override
     public List<Produto> listar() throws ErroSistema {
         List<Produto> pr;
-        pr=em.createQuery("SELECT e FROM Produto e").getResultList();
+        pr = em.createQuery("SELECT e FROM Produto e order by e.descricao").getResultList();
         return pr;
     }
 }

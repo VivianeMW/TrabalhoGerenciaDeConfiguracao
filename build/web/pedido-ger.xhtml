@@ -20,20 +20,20 @@
 
                 <h:outputLabel for="aa" value="Cliente"></h:outputLabel>
                 <p:selectOneMenu id="aa" value="#{pedidoBean.entidade.cliente}">
-                    <f:selectItem noSelectionOption="true" itemLabel = "Selecione uma cliente" itemValue = "" />
+                    <f:selectItem noSelectionOption="true" itemLabel = "Selecione um cliente" itemValue = "" />
                     <f:selectItems value="#{pedidoBean.clientesSelect}"/>
                 </p:selectOneMenu>
 
                 <p:outputLabel for="g" value="Produto"></p:outputLabel>
                 <h:panelGroup>
                     <p:selectOneMenu id="g" value="#{pedidoBean.entidade.produto}">
-                        <f:selectItem noSelectionOption="true" itemLabel = "Selecione uma produto" itemValue = "" />
+                        <f:selectItem noSelectionOption="true" itemLabel = "Selecione um produto" itemValue = "" />
                         <f:selectItems itemLabel="Selecione o produto" value="#{pedidoBean.produtosSelect}" />
 
                     </p:selectOneMenu>
                     <p:commandButton value="Adicionar" actionListener="#{pedidoBean.adicionarProdutos()}" update="fr">
-                       
-                
+
+
                     </p:commandButton>
                 </h:panelGroup>
 
@@ -41,12 +41,12 @@
             </p:panelGrid>
 
 
-            <p:dataTable id="pr" editable="true" editMode="cell" value="#{pedidoBean.entidade.produtos}" var="prod" rendered="#{pedidoBean.busca == false}">
+            <p:dataTable id="pr" editable="true" editMode="cell" value="#{pedidoBean.entidade.itensPedido}" var="prod" rendered="#{pedidoBean.busca == false}">
 
                 <p:ajax event="cellEdit" listener="#{pedidoBean.calcularTotal()}" update="fr:total" />
 
                 <p:column style="width: 25%; text-align:center" headerText="Descrição">
-                    <h:outputText style="width: 25%; text-align:center" value="#{prod.descricao}" /> 
+                    <h:outputText style="width: 25%; text-align:center" value="#{prod.produto.descricao}" /> 
                 </p:column>
 
                 <p:column style="width: 25%; text-align:center" headerText="Quantidade">
@@ -56,22 +56,22 @@
                     </p:cellEditor>
                 </p:column>
 
-                <p:column style="width: 25%; text-align:center" headerText="Preço">
-                    <h:outputText style="width: 25%; text-align:center" value="#{prod.preco}" >
-                     <f:convertNumber currencyCode="BRL" type="currency"/>
+                <p:column style="width: 25%; text-align:center" headerText="Preço unitario">
+                    <h:outputText style="width: 25%; text-align:center" value="#{prod.produto.preco}" >
+                        <f:convertNumber currencyCode="BRL" type="currency"/>
                     </h:outputText>                    
-                    
+
                 </p:column>
 
                 <p:column style="width: 25%; text-align:center" headerText="Desconto %">
-                        <h:outputText style="width: 25%; text-align:center" value="#{prod.desconto}" />
-                        
+                    <h:outputText style="width: 25%; text-align:center" value="#{prod.desconto}" />
+
                 </p:column>
 
 
                 <p:column style="width: 25%; text-align:center">
 
-                    <p:commandButton  icon="ui-icon-trash" action="#{pedidoBean.removerProdutos(prod.id)}" update="fr">
+                    <p:commandButton  icon="ui-icon-trash" action="#{pedidoBean.removerProdutos(prod)}" update="fr">
                         <p:confirm header="Confirmação" message="Deseja excluir?" icon="ui-icon-alert"/> 
                     </p:commandButton>
                 </p:column>
@@ -80,7 +80,7 @@
 
 
             <h:panelGrid columns="2" style="margin-left:500px" rendered="#{pedidoBean.busca == false}">
-                
+
                 <p:outputLabel value="Total pedido"></p:outputLabel>
                 <p:outputLabel id="total" value="#{pedidoBean.entidade.valorTotal}">
                     <f:convertNumber currencyCode="BRL" type="currency"/>
@@ -91,7 +91,7 @@
 
 
             <p:dataTable value="#{pedidoBean.entidades}" var="pedidos" rendered="#{pedidoBean.busca == true}">
-                
+
                 <p:column style="width: 25%; text-align:center" headerText="ID" sortBy="#{pedidos.id}" filterBy="#{pedidos.id}">
                     <h:outputText value="#{pedidos.id}"></h:outputText>
                 </p:column>
@@ -101,11 +101,11 @@
                 </p:column>
                 <p:column style="width: 25%; text-align:center" headerText="Valor total" sortBy="#{pedidos.valorTotal}">
                     <h:outputText value="#{pedidos.valorTotal}">
-                    <f:convertNumber currencyCode="BRL" type="currency"/>
+                        <f:convertNumber currencyCode="BRL" type="currency"/>
                     </h:outputText>
                 </p:column>
 
-                
+
 
 
                 <p:column style="width: 25%; text-align:center">
@@ -127,8 +127,8 @@
 
             </p:confirmDialog>
         </p:fieldset>
-        
-        
+
+
     </h:form>
 </ui:decorate>
 

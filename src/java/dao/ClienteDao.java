@@ -17,11 +17,11 @@ import model.Cliente;
  *
  * @author Viviane
  */
-public class ClienteDao implements GenDao<Cliente> ,Serializable{
-    
+public class ClienteDao implements GenDao<Cliente>, Serializable {
+
     private static final long serialVersionUID = 1L;
-    
-    private Cliente cliente=new Cliente();
+
+    private Cliente cliente = new Cliente();
 
     private static EntityManagerFactory emf;
     private static EntityManager em;
@@ -33,10 +33,9 @@ public class ClienteDao implements GenDao<Cliente> ,Serializable{
         em = emf.createEntityManager();
     }
 
-    
     @Override
-    public Cliente salvar(Cliente p) throws ErroSistema{
-     em.getTransaction().begin();
+    public Cliente salvar(Cliente p) throws ErroSistema {
+        em.getTransaction().begin();
 
         try {
             em.merge(p);
@@ -45,20 +44,18 @@ public class ClienteDao implements GenDao<Cliente> ,Serializable{
         } catch (Exception e) {
             em.getTransaction().rollback();
         }
-       
+
         return p;
     }
 
-   
-    
     @Override
-    public void deletar(Cliente p) throws ErroSistema{
+    public void deletar(Cliente p) throws ErroSistema {
         em.getTransaction().begin();
-        Long i=p.getId();
-        cliente=em.find(Cliente.class, i);
+        Long i = p.getId();
+        cliente = em.find(Cliente.class, i);
         cliente.getId();
         try {
-  
+
             em.remove(cliente);
             em.getTransaction().commit();
 
@@ -66,23 +63,21 @@ public class ClienteDao implements GenDao<Cliente> ,Serializable{
             e.printStackTrace();
             em.getTransaction().rollback();
         }
-        
+
     }
 
     public Cliente consultarPorId(Long id) {
         Query query = em.createQuery("SELECT c FROM Cliente c WHERE c.id = :id");
         query.setParameter("id", id);
         Cliente resultBean = (Cliente) query.getSingleResult();
-        return resultBean;    
+        return resultBean;
     }
-    
+
     @Override
     public List<Cliente> listar() throws ErroSistema {
         List<Cliente> pr;
-        pr=em.createQuery("SELECT e FROM Cliente e").getResultList();
+        pr = em.createQuery("SELECT e FROM Cliente e order by e.nome").getResultList();
         return pr;
     }
-    
 
-    
 }

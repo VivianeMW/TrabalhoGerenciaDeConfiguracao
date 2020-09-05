@@ -9,8 +9,6 @@ import dao.ProdutoDao;
 import java.io.Serializable;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-
-
 import model.Produto;
 
 /**
@@ -19,13 +17,14 @@ import model.Produto;
  */
 @ManagedBean
 @ViewScoped
-public class ProdutoBean extends GenBean<Produto, ProdutoDao> implements Serializable{
+public class ProdutoBean extends GenBean<Produto, ProdutoDao> implements Serializable {
+
     private static final Long serialVersionUID = 1L;
     private ProdutoDao produtoDao;
-    
+
     @Override
     public ProdutoDao getDao() {
-        if(produtoDao == null){
+        if (produtoDao == null) {
             produtoDao = new ProdutoDao();
         }
         return produtoDao;
@@ -36,5 +35,5 @@ public class ProdutoBean extends GenBean<Produto, ProdutoDao> implements Seriali
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         return new Produto();
     }
-  
+
 }

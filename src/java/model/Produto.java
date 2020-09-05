@@ -18,39 +18,29 @@ import javax.persistence.Table;
  *
  * @author viviane.wehrmeister
  */
-
 @Entity
-@Table(name="produto")
+@Table(name = "produto")
 public class Produto implements Serializable {
-    
+
     private static final Long serialVersionUID = 1L;
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name="id")
+    @Column(name = "id")
     private Long id;
-    
-    @Column(name="descricao")
+
+    @Column(name = "descricao")
     private String descricao;
-    
-    @Column(name="fabricante")
+
+    @Column(name = "fabricante")
     private String fabricante;
 
-    @Column(name="quantidade")
-    private int quantidade;
-    
-    @Column(name="desconto")
-    private double desconto;
-    
-    @Column(name="valortotal")
-    private double valorTotal;
-    
-    @Column(name="preco")
+    @Column(name = "preco")
     private double preco;
-    
+
     public Produto() {
+       
     }
-    
 
     public Long getId() {
         return id;
@@ -76,30 +66,6 @@ public class Produto implements Serializable {
         this.fabricante = fabricante;
     }
 
-    public int getQuantidade() {
-        return quantidade;
-    }
-
-    public void setQuantidade(int quantidade) {
-        this.quantidade = quantidade;
-    }
-
-    public double getDesconto() {
-        return desconto;
-    }
-
-    public void setDesconto(double desconto) {
-        this.desconto = desconto;
-    }
-
-    public double getValorTotal() {
-        return valorTotal;
-    }
-
-    public void setValorTotal(double valorTotal) {
-        this.valorTotal = valorTotal;
-    }
-
     public double getPreco() {
         return preco;
     }
@@ -111,13 +77,10 @@ public class Produto implements Serializable {
     @Override
     public int hashCode() {
         int hash = 5;
-        hash = 29 * hash + Objects.hashCode(this.id);
-        hash = 29 * hash + Objects.hashCode(this.descricao);
-        hash = 29 * hash + Objects.hashCode(this.fabricante);
-        hash = 29 * hash + this.quantidade;
-        hash = 29 * hash + (int) (Double.doubleToLongBits(this.desconto) ^ (Double.doubleToLongBits(this.desconto) >>> 32));
-        hash = 29 * hash + (int) (Double.doubleToLongBits(this.valorTotal) ^ (Double.doubleToLongBits(this.valorTotal) >>> 32));
-        hash = 29 * hash + (int) (Double.doubleToLongBits(this.preco) ^ (Double.doubleToLongBits(this.preco) >>> 32));
+        hash = 61 * hash + Objects.hashCode(this.id);
+        hash = 61 * hash + Objects.hashCode(this.descricao);
+        hash = 61 * hash + Objects.hashCode(this.fabricante);
+        hash = 61 * hash + (int) (Double.doubleToLongBits(this.preco) ^ (Double.doubleToLongBits(this.preco) >>> 32));
         return hash;
     }
 
@@ -133,15 +96,6 @@ public class Produto implements Serializable {
             return false;
         }
         final Produto other = (Produto) obj;
-        if (this.quantidade != other.quantidade) {
-            return false;
-        }
-        if (Double.doubleToLongBits(this.desconto) != Double.doubleToLongBits(other.desconto)) {
-            return false;
-        }
-        if (Double.doubleToLongBits(this.valorTotal) != Double.doubleToLongBits(other.valorTotal)) {
-            return false;
-        }
         if (Double.doubleToLongBits(this.preco) != Double.doubleToLongBits(other.preco)) {
             return false;
         }
@@ -156,11 +110,5 @@ public class Produto implements Serializable {
         }
         return true;
     }
-
-   
-
-    
-
-    
 
 }

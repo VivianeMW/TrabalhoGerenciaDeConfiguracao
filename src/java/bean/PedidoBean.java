@@ -6,20 +6,18 @@
 package bean;
 
 import dao.ClienteDao;
-
+import dao.ItemDao;
 import dao.PedidoDao;
 import dao.ProdutoDao;
 import exception.ErroSistema;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.bean.ViewScoped;
-import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import model.Cliente;
+import model.Item;
 import model.Pedido;
 import model.Produto;
 import org.primefaces.event.CellEditEvent;
@@ -30,8 +28,9 @@ import org.primefaces.event.CellEditEvent;
  */
 @ManagedBean
 @SessionScoped
-public class PedidoBean extends GenBean<Pedido, PedidoDao> implements Serializable{
-private static final Long serialVersionUID = 1L;
+public class PedidoBean extends GenBean<Pedido, PedidoDao> implements Serializable {
+
+    private static final Long serialVersionUID = 1L;
     private PedidoDao pedidoDao;
     private List<SelectItem> clientesSelect;
     private List<SelectItem> produtosSelect;
@@ -52,27 +51,26 @@ private static final Long serialVersionUID = 1L;
     }
 
     Produto p = new Produto();
+    Item item = new Item();
+    List<Item> itens = new ArrayList<Item>();
 
     public void adicionarProdutos() {
+        Item item = new Item();
         p = this.getEntidade().getProduto();
-        p.setPreco(this.getEntidade().getProduto().getPreco());
-        p.setQuantidade(1);
-        p.setDesconto(this.getEntidade().getCliente().getDesconto());
-        this.getEntidade().getProdutos().add(p);
+        item.setProduto(p);
+        item.setQuantidade(1);
+        item.setId(p.getId());
+        item.setDesconto(this.getEntidade().getCliente().getDesconto());
+        this.getEntidade().getItensPedido().add(item);
+
         calcularTotal();
     }
 
-    ProdutoDao pd=new ProdutoDao();
-    public void removerProdutos(Long i) {
-        p = pd.consultarPorId(i);
-        int j;
-        for(int v=0;v<this.getEntidade().getProdutos().size();v++){
-            if(this.getEntidade().getProdutos().get(v).getId() == i){
-                this.getEntidade().getProdutos().remove(v);
-                break;
-            }
-        }
-        
+    ItemDao pd = new ItemDao();
+
+    public void removerProdutos(Item v) {
+        this.getEntidade().getItensPedido().remove(v);
+
         calcularTotal();
     }
     double valor;
@@ -80,31 +78,29 @@ private static final Long serialVersionUID = 1L;
 
     public void calcularTotal() {
         valor = 0;
-        valordesc = this.getEntidade().getCliente().getDesconto()/100;
-        for (Produto c : this.getEntidade().getProdutos()) {
-            valor += c.getQuantidade() * c.getPreco();
+        valordesc = this.getEntidade().getCliente().getDesconto() / 100;
+        for (Item c : this.getEntidade().getItensPedido()) {
+            valor += c.getQuantidade() * c.getProduto().getPreco();
 
         }
-        valordesc=valor*valordesc;
+        valordesc = valor * valordesc;
         this.getEntidade().setValorTotal(valor - valordesc);
 
     }
 
     public List<SelectItem> getClientesSelect() throws ErroSistema {
-        
-            clientesSelect = new ArrayList<SelectItem>();
-            ClienteDao clientedao = new ClienteDao();
-            List<Cliente> clientesLista = clientedao.listar();
-            if (clientesLista != null && !clientesLista.isEmpty()) {
-                SelectItem item;
-                for (Cliente listClientes : clientesLista) {
-                    item = new SelectItem(listClientes, listClientes.getNome());
-                    clientesSelect.add(item);
-                }
 
+        clientesSelect = new ArrayList<SelectItem>();
+        ClienteDao clientedao = new ClienteDao();
+        List<Cliente> clientesLista = clientedao.listar();
+        if (clientesLista != null && !clientesLista.isEmpty()) {
+            SelectItem item;
+            for (Cliente listClientes : clientesLista) {
+                item = new SelectItem(listClientes, listClientes.getNome());
+                clientesSelect.add(item);
             }
 
-        
+        }
 
         return clientesSelect;
     }
@@ -124,6 +120,62 @@ private static final Long serialVersionUID = 1L;
         }
 
         return produtosSelect;
+    }
+
+    public PedidoDao getPedidoDao() {
+        return pedidoDao;
+    }
+
+    public void setPedidoDao(PedidoDao pedidoDao) {
+        this.pedidoDao = pedidoDao;
+    }
+
+    public Produto getP() {
+        return p;
+    }
+
+    public void setP(Produto p) {
+        this.p = p;
+    }
+
+    public Item getItem() {
+        return item;
+    }
+
+    public void setItem(Item item) {
+        this.item = item;
+    }
+
+    public List<Item> getItens() {
+        return itens;
+    }
+
+    public void setItens(List<Item> itens) {
+        this.itens = itens;
+    }
+
+    public ItemDao getPd() {
+        return pd;
+    }
+
+    public void setPd(ItemDao pd) {
+        this.pd = pd;
+    }
+
+    public double getValor() {
+        return valor;
+    }
+
+    public void setValor(double valor) {
+        this.valor = valor;
+    }
+
+    public double getValordesc() {
+        return valordesc;
+    }
+
+    public void setValordesc(double valordesc) {
+        this.valordesc = valordesc;
     }
 
 }

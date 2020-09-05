@@ -12,7 +12,7 @@
         <p:messages showDetail="true"></p:messages>
         <p:fieldset legend="Produtos">
             <sc:toolbarCrud crudBean="#{produtoBean}">
-                
+
             </sc:toolbarCrud>
             <p:panelGrid columns="2" rendered="#{produtoBean.busca == false}">
                 <h:outputLabel value="Descrição"></h:outputLabel>
@@ -20,12 +20,12 @@
 
                 <h:outputLabel value="Fabricante"></h:outputLabel>
                 <p:inputText value="#{produtoBean.entidade.fabricante}"></p:inputText>
-                
+
                 <h:outputLabel value="Preço de venda"></h:outputLabel>
                 <p:inputText value="#{produtoBean.entidade.preco}">
-                <f:convertNumber currencyCode="BRL" type="currency"/>
+                    <f:convertNumber currencyCode="BRL" type="currency"/>
                 </p:inputText>
-     
+
             </p:panelGrid>
             <p:dataTable value="#{produtoBean.entidades}" var="prods" rendered="#{produtoBean.busca == true}">
                 <p:column style="width: 25%; text-align:center" headerText="ID" sortBy="#{prods.id}" filterBy="#{prods.id}">
@@ -37,22 +37,22 @@
                 <p:column style="width: 25%; text-align:center" headerText="Fabricante" sortBy="#{prods.fabricante}" filterBy="#{prods.fabricante}">
                     <h:outputText value="#{prods.fabricante}"></h:outputText>
                 </p:column>
-                
+
                 <p:column style="width: 25%; text-align:center" headerText="Preço de venda" sortBy="#{prods.preco}" filterBy="#{prods.preco}">
                     <h:outputText value="#{prods.preco}">
-                    <f:convertNumber currencyCode="BRL" type="currency"/>
+                        <f:convertNumber currencyCode="BRL" type="currency"/>
                     </h:outputText>
                 </p:column>
-                
+
                 <p:column style="width: 25%; text-align:center">
                     <p:commandButton icon="ui-icon-pencil" action="#{produtoBean.editar(prods)}" update="@form">
-                    <p:confirm header="Confirmação" message="Deseja editar?" icon="ui-icon-alert"/> 
+                        <p:confirm header="Confirmação" message="Deseja editar?" icon="ui-icon-alert"/> 
                     </p:commandButton>
                     <p:commandButton  icon="ui-icon-trash" action="#{produtoBean.deletar(prods)}" update="@form">
-                    <p:confirm header="Confirmação" message="Deseja excluir?" icon="ui-icon-alert"/> 
+                        <p:confirm header="Confirmação" message="Deseja excluir?" icon="ui-icon-alert"/> 
                     </p:commandButton>
                 </p:column>
-               
+
             </p:dataTable>
             <p:confirmDialog global="true">
 

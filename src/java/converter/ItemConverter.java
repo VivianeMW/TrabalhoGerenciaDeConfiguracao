@@ -5,26 +5,27 @@
  */
 package converter;
 
-import dao.ClienteDao;
+import dao.ItemDao;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
-import model.Cliente;
+import model.Item;
 
 /**
  *
  * @author Viviane
  */
-@FacesConverter(forClass = Cliente.class)
-public class ClienteConverter implements Converter {
+@FacesConverter(forClass = Item.class)
+public class ItemConverter implements Converter {
 
     @Override
     public Object getAsObject(FacesContext fc, UIComponent uic, String string) {
+
         if (string != null && string.trim().length() > 0) {
             Long codigo = Long.valueOf(string);
-            ClienteDao clienteDao = new ClienteDao();
-            return clienteDao.consultarPorId(codigo);
+            ItemDao produtoDao = new ItemDao();
+            return produtoDao.consultarPorId(codigo);
         }
 
 //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -32,10 +33,11 @@ public class ClienteConverter implements Converter {
     }
 
     @Override
-    public String getAsString(FacesContext fc, UIComponent uic, Object ocliente) {
-        if (ocliente != null) {
-            Cliente cliente = (Cliente) ocliente;
-            return cliente.getId().toString();
+    public String getAsString(FacesContext fc, UIComponent uic, Object oproduto) {
+
+        if (oproduto != null) {
+            Item produto = (Item) oproduto;
+            return produto.getId().toString();
         }
 
 //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
