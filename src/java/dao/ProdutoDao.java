@@ -6,6 +6,7 @@
 package dao;
 
 import exception.ErroSistema;
+import java.io.Serializable;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -16,9 +17,9 @@ import model.Produto;
  *
  * @author viviane.wehrmeister
  */
-public class ProdutoDao implements GenDao<Produto> {
+public class ProdutoDao implements GenDao<Produto>,Serializable{
+     private static final Long serialVersionUID = 1L;
     
-    private static final long serialVersionUID = 1L;
     
      private Produto produto=new Produto();
 

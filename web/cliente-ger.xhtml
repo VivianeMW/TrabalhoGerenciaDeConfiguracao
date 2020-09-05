@@ -20,7 +20,13 @@
 
                 <h:outputLabel value="CPF"></h:outputLabel>
                 <p:inputMask id="cpf" value="#{clienteBean.entidade.cpf}" mask="999.999.999-99"></p:inputMask>
-                    
+                   
+                <h:outputLabel value="Desconto"></h:outputLabel>
+                <h:panelGroup>
+                <p:inputText id="desco" value="#{clienteBean.entidade.desconto}" ></p:inputText>
+                <h:outputLabel value="%"></h:outputLabel>
+                </h:panelGroup>
+                
                 <h:outputLabel value="CEP"></h:outputLabel>
                 <p:inputMask id="cep" value="#{clienteBean.entidade.cep}" mask="99.999-999">
                     <p:ajax event="change" process="fr:cep" update="fr:bairro fr:rua fr:cidade fr:estado" listener="#{clienteBean.consultaCep()}"/>
@@ -54,6 +60,10 @@
                 
                 <p:column style="width: 10%; text-align:center" headerText="Nome" sortBy="#{clies.nome}" filterBy="#{clies.nome}">
                     <h:outputText value="#{clies.nome}"></h:outputText>
+                </p:column>
+                
+                <p:column style="width: 10%; text-align:center" headerText="Desconto em %" sortBy="#{clies.desconto}" filterBy="#{clies.desconto}">
+                    <h:outputText value="#{clies.desconto}"></h:outputText>
                 </p:column>
                 
                 <p:column style="width: 10%; text-align:center" headerText="CPF" sortBy="#{clies.cpf}" filterBy="#{clies.cpf}">

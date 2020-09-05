@@ -45,35 +45,33 @@
 
                 <p:ajax event="cellEdit" listener="#{pedidoBean.calcularTotal()}" update="fr:total" />
 
-                <p:column headerText="Descrição">
-                    <h:outputText value="#{prod.descricao}" />   
+                <p:column style="width: 25%; text-align:center" headerText="Descrição">
+                    <h:outputText style="width: 25%; text-align:center" value="#{prod.descricao}" /> 
                 </p:column>
 
-                <p:column headerText="Quantidade">
+                <p:column style="width: 25%; text-align:center" headerText="Quantidade">
                     <p:cellEditor>
                         <f:facet name="output"><h:outputText value="#{prod.quantidade}" /></f:facet>
                         <f:facet name="input"><p:inputText id="modelIn" value="#{prod.quantidade}" style="width:100%"/></f:facet>
                     </p:cellEditor>
                 </p:column>
 
-                <p:column headerText="Preço">
-                    <p:cellEditor>
-                        <f:facet name="output"><h:outputText value="#{prod.preco}" /></f:facet>
-                        <f:facet name="input"><p:inputText id="model" value="#{prod.preco}" style="width:100%"/></f:facet>
-                    </p:cellEditor>
+                <p:column style="width: 25%; text-align:center" headerText="Preço">
+                    <h:outputText style="width: 25%; text-align:center" value="#{prod.preco}" >
+                     <f:convertNumber currencyCode="BRL" type="currency"/>
+                    </h:outputText>                    
+                    
                 </p:column>
 
-                <p:column headerText="Desconto">
-                    <p:cellEditor>
-                        <f:facet name="output"><h:outputText value="#{prod.desconto}" /></f:facet>
-                        <f:facet name="input"><p:inputText id="mod" value="#{prod.desconto}" style="width:100%"/></f:facet>
-                    </p:cellEditor>
+                <p:column style="width: 25%; text-align:center" headerText="Desconto %">
+                        <h:outputText style="width: 25%; text-align:center" value="#{prod.desconto}" />
+                        
                 </p:column>
 
 
                 <p:column style="width: 25%; text-align:center">
 
-                    <p:commandButton  icon="ui-icon-trash" action="#{pedidoBean.removerProdutos()}" update="fr">
+                    <p:commandButton  icon="ui-icon-trash" action="#{pedidoBean.removerProdutos(prod.id)}" update="fr">
                         <p:confirm header="Confirmação" message="Deseja excluir?" icon="ui-icon-alert"/> 
                     </p:commandButton>
                 </p:column>

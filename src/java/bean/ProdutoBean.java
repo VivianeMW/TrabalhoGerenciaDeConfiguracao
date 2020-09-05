@@ -6,6 +6,7 @@
 package bean;
 
 import dao.ProdutoDao;
+import java.io.Serializable;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
@@ -18,8 +19,8 @@ import model.Produto;
  */
 @ManagedBean
 @ViewScoped
-public class ProdutoBean extends GenBean<Produto, ProdutoDao> {
-    
+public class ProdutoBean extends GenBean<Produto, ProdutoDao> implements Serializable{
+    private static final Long serialVersionUID = 1L;
     private ProdutoDao produtoDao;
     
     @Override

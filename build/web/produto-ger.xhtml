@@ -5,7 +5,8 @@
              xmlns:p="http://primefaces.org/ui"
              xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
              template="template.xhtml"
-             xmlns:sc="http://xmlns.jcp.org/jsf/composite/sccomp">
+             xmlns:sc="http://xmlns.jcp.org/jsf/composite/sccomp"
+             xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <h:form>
         <p:messages showDetail="true"></p:messages>
@@ -19,8 +20,12 @@
 
                 <h:outputLabel value="Fabricante"></h:outputLabel>
                 <p:inputText value="#{produtoBean.entidade.fabricante}"></p:inputText>
-
                 
+                <h:outputLabel value="Preço de venda"></h:outputLabel>
+                <p:inputText value="#{produtoBean.entidade.preco}">
+                <f:convertNumber currencyCode="BRL" type="currency"/>
+                </p:inputText>
+     
             </p:panelGrid>
             <p:dataTable value="#{produtoBean.entidades}" var="prods" rendered="#{produtoBean.busca == true}">
                 <p:column style="width: 25%; text-align:center" headerText="ID" sortBy="#{prods.id}" filterBy="#{prods.id}">
@@ -31,6 +36,12 @@
                 </p:column>
                 <p:column style="width: 25%; text-align:center" headerText="Fabricante" sortBy="#{prods.fabricante}" filterBy="#{prods.fabricante}">
                     <h:outputText value="#{prods.fabricante}"></h:outputText>
+                </p:column>
+                
+                <p:column style="width: 25%; text-align:center" headerText="Preço de venda" sortBy="#{prods.preco}" filterBy="#{prods.preco}">
+                    <h:outputText value="#{prods.preco}">
+                    <f:convertNumber currencyCode="BRL" type="currency"/>
+                    </h:outputText>
                 </p:column>
                 
                 <p:column style="width: 25%; text-align:center">

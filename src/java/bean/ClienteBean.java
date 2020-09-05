@@ -10,6 +10,7 @@ import com.google.gson.reflect.TypeToken;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.WebResource;
 import dao.ClienteDao;
+import java.io.Serializable;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -21,8 +22,8 @@ import model.Cliente;
  */
 @ManagedBean
 @SessionScoped
-public class ClienteBean extends GenBean <Cliente, ClienteDao> {
-    
+public class ClienteBean extends GenBean <Cliente, ClienteDao> implements Serializable{
+    private static final Long serialVersionUID = 1L;
     
     
     private ClienteDao clienteDao;
