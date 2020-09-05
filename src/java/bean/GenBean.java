@@ -34,6 +34,7 @@ public abstract class GenBean<E, D extends GenDao> {
             entidade = criarNovaEntidade();
             adicionarMensagem("Salvo com sucesso!", FacesMessage.SEVERITY_INFO);
             mudarParaBusca();
+            buscar();
         } catch (ErroSistema ex) {
             Logger.getLogger(GenDao.class.getName()).log(Level.SEVERE, null, ex);
             adicionarMensagem(ex.getMessage(), FacesMessage.SEVERITY_ERROR);
