@@ -22,6 +22,7 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import model.Cliente;
+import model.Item;
 import model.Pedido;
 import model.Produto;
 import org.primefaces.event.CellEditEvent;
@@ -57,29 +58,36 @@ public class PedidoBean extends GenBean<Pedido, PedidoDao>{
    
 
     
-    Produto p=new Produto();
-    
+    Produto p = new Produto();
+    Item item = new Item();
+    List<Item> itens = new ArrayList<Item>();
     
     public void adicionarProdutos(){
-        p=this.getEntidade().getProduto();
-        p.setPreco(1);
-        p.setQuantidade(1);
-        p.setDesconto(0);
-        this.getEntidade().getProdutos().add(p);
-     calcularTotal();
+       Item item = new Item();
+        p = this.getEntidade().getProduto();
+        item.setProduto(p);
+        item.setQuantidade(0);
+        
+        item.setDesconto(0);
+        item.setPreco(0);
+        this.getEntidade().getItensPedido().add(item);
+
+        calcularTotal();
+
     }
     
-      public void removerProdutos(){
-        p=this.getEntidade().getProduto();
-        this.getEntidade().getProdutos().remove(p);
-     calcularTotal();
+      public void removerProdutos(Item v) {
+        this.getEntidade().getItensPedido().remove(v);
+
+        calcularTotal();
     }
+
       double valor;
       double valordesc;
       public void calcularTotal(){
           valor=0;
           valordesc=0;
-          for(Produto c : this.getEntidade().getProdutos()) {
+          for(Item c : this.getEntidade().getItensPedido()) {
           valor += c.getQuantidade()*c.getPreco();
           valordesc += c.getQuantidade()*c.getDesconto();
           

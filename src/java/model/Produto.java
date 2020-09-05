@@ -45,9 +45,6 @@ public class Produto implements Serializable {
     @Column(name="valortotal")
     private double valorTotal;
     
-    @Column(name="preco")
-    private double preco;
-    
     public Produto() {
     }
     
@@ -100,24 +97,15 @@ public class Produto implements Serializable {
         this.valorTotal = valorTotal;
     }
 
-    public double getPreco() {
-        return preco;
-    }
-
-    public void setPreco(double preco) {
-        this.preco = preco;
-    }
-
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 67 * hash + Objects.hashCode(this.id);
-        hash = 67 * hash + Objects.hashCode(this.descricao);
-        hash = 67 * hash + Objects.hashCode(this.fabricante);
-        hash = 67 * hash + this.quantidade;
-        hash = 67 * hash + (int) (Double.doubleToLongBits(this.desconto) ^ (Double.doubleToLongBits(this.desconto) >>> 32));
-        hash = 67 * hash + (int) (Double.doubleToLongBits(this.valorTotal) ^ (Double.doubleToLongBits(this.valorTotal) >>> 32));
-        hash = 67 * hash + (int) (Double.doubleToLongBits(this.preco) ^ (Double.doubleToLongBits(this.preco) >>> 32));
+        int hash = 3;
+        hash = 53 * hash + Objects.hashCode(this.id);
+        hash = 53 * hash + Objects.hashCode(this.descricao);
+        hash = 53 * hash + Objects.hashCode(this.fabricante);
+        hash = 53 * hash + this.quantidade;
+        hash = 53 * hash + (int) (Double.doubleToLongBits(this.desconto) ^ (Double.doubleToLongBits(this.desconto) >>> 32));
+        hash = 53 * hash + (int) (Double.doubleToLongBits(this.valorTotal) ^ (Double.doubleToLongBits(this.valorTotal) >>> 32));
         return hash;
     }
 
@@ -142,9 +130,6 @@ public class Produto implements Serializable {
         if (Double.doubleToLongBits(this.valorTotal) != Double.doubleToLongBits(other.valorTotal)) {
             return false;
         }
-        if (Double.doubleToLongBits(this.preco) != Double.doubleToLongBits(other.preco)) {
-            return false;
-        }
         if (!Objects.equals(this.descricao, other.descricao)) {
             return false;
         }
@@ -157,8 +142,6 @@ public class Produto implements Serializable {
         return true;
     }
 
-    
-
-    
+   
 
 }

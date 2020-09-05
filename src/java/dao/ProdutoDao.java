@@ -78,7 +78,7 @@ public class ProdutoDao implements GenDao<Produto> {
     @Override
     public List<Produto> listar() throws ErroSistema {
         List<Produto> pr;
-        pr=em.createQuery("SELECT e FROM Produto e").getResultList();
+        pr=em.createQuery("SELECT e FROM Produto e order by e.descricao").getResultList();
         return pr;
     }
 }

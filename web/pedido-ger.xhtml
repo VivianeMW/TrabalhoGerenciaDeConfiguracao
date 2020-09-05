@@ -20,14 +20,14 @@
 
                 <h:outputLabel for="aa" value="Cliente"></h:outputLabel>
                 <p:selectOneMenu id="aa" value="#{pedidoBean.entidade.cliente}">
-                    <f:selectItem noSelectionOption="true" itemLabel = "Selecione uma cliente" itemValue = "" />
+                    <f:selectItem noSelectionOption="true" itemLabel = "Selecione um cliente" itemValue = "" />
                     <f:selectItems value="#{pedidoBean.clientesSelect}"/>
                 </p:selectOneMenu>
 
                 <p:outputLabel for="g" value="Produto"></p:outputLabel>
                 <h:panelGroup>
                     <p:selectOneMenu id="g" value="#{pedidoBean.entidade.produto}">
-                        <f:selectItem noSelectionOption="true" itemLabel = "Selecione uma produto" itemValue = "" />
+                        <f:selectItem noSelectionOption="true" itemLabel = "Selecione um produto" itemValue = "" />
                         <f:selectItems itemLabel="Selecione o produto" value="#{pedidoBean.produtosSelect}" />
 
                     </p:selectOneMenu>
@@ -41,12 +41,12 @@
             </p:panelGrid>
 
 
-            <p:dataTable id="pr" editable="true" editMode="cell" value="#{pedidoBean.entidade.produtos}" var="prod" rendered="#{pedidoBean.busca == false}">
+            <p:dataTable id="pr" editable="true" editMode="cell" value="#{pedidoBean.entidade.itensPedido}" var="prod" rendered="#{pedidoBean.busca == false}">
 
                 <p:ajax event="cellEdit" listener="#{pedidoBean.calcularTotal()}" update="fr:total" />
 
                 <p:column headerText="Descrição">
-                    <h:outputText value="#{prod.descricao}" />   
+                    <h:outputText value="#{prod.produto.descricao}" />   
                 </p:column>
 
                 <p:column headerText="Quantidade">
@@ -73,7 +73,7 @@
 
                 <p:column style="width: 25%; text-align:center">
 
-                    <p:commandButton  icon="ui-icon-trash" action="#{pedidoBean.removerProdutos()}" update="fr">
+                    <p:commandButton  icon="ui-icon-trash" action="#{pedidoBean.removerProdutos(prod)}" update="fr">
                         <p:confirm header="Confirmação" message="Deseja excluir?" icon="ui-icon-alert"/> 
                     </p:commandButton>
                 </p:column>

@@ -6,36 +6,36 @@
 package dao;
 
 import exception.ErroSistema;
+import java.io.Serializable;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
-import model.Cliente;
+import model.Item;
 
 /**
  *
  * @author Viviane
  */
-public class ClienteDao implements GenDao<Cliente> {
-    
-    private static final long serialVersionUID = 1L;
-    
-    private Cliente cliente=new Cliente();
+public class ItemDao implements GenDao<Item>, Serializable {
+
+    private static final Long serialVersionUID = 1L;
+
+    private Item produto = new Item();
 
     private static EntityManagerFactory emf;
     private static EntityManager em;
 
-    public ClienteDao() {
+    public ItemDao() {
         super();
-        this.cliente = cliente;
+        this.produto = produto;
         emf = javax.persistence.Persistence.createEntityManagerFactory("TrabVersao");
         em = emf.createEntityManager();
     }
 
-    
     @Override
-    public Cliente salvar(Cliente p) throws ErroSistema{
-     em.getTransaction().begin();
+    public Item salvar(Item p) throws ErroSistema {
+        em.getTransaction().begin();
 
         try {
             em.merge(p);
@@ -44,44 +44,39 @@ public class ClienteDao implements GenDao<Cliente> {
         } catch (Exception e) {
             em.getTransaction().rollback();
         }
-       
+
         return p;
     }
 
-   
-    
     @Override
-    public void deletar(Cliente p) throws ErroSistema{
+    public void deletar(Item p) throws ErroSistema {
         em.getTransaction().begin();
-        Long i=p.getId();
-        cliente=em.find(Cliente.class, i);
-        cliente.getId();
+        Long i = p.getId();
+        produto = em.find(Item.class, i);
+        produto.getId();
         try {
-  
-            em.remove(cliente);
+
+            em.remove(produto);
             em.getTransaction().commit();
 
         } catch (Exception e) {
             e.printStackTrace();
             em.getTransaction().rollback();
         }
-        
+
     }
 
-    public Cliente consultarPorId(Long id) {
-        Query query = em.createQuery("SELECT c FROM Cliente c WHERE c.id = :id");
+    public Item consultarPorId(Long id) {
+        Query query = em.createQuery("SELECT c FROM Item c WHERE c.id = :id");
         query.setParameter("id", id);
-        Cliente resultBean = (Cliente) query.getSingleResult();
-        return resultBean;    
+        Item resultBean = (Item) query.getSingleResult();
+        return resultBean;
     }
-    
+
     @Override
-    public List<Cliente> listar() throws ErroSistema {
-        List<Cliente> pr;
-        pr=em.createQuery("SELECT e FROM Cliente e order by e.nome").getResultList();
+    public List<Item> listar() throws ErroSistema {
+        List<Item> pr;
+        pr = em.createQuery("SELECT e FROM Item e").getResultList();
         return pr;
     }
-    
-
-    
 }
