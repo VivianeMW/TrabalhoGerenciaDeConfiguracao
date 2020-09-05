@@ -59,7 +59,6 @@ public class PedidoBean extends GenBean<Pedido, PedidoDao> implements Serializab
         p = this.getEntidade().getProduto();
         item.setProduto(p);
         item.setQuantidade(1);
-        item.setId(p.getId());
         item.setDesconto(this.getEntidade().getCliente().getDesconto());
         this.getEntidade().getItensPedido().add(item);
 
