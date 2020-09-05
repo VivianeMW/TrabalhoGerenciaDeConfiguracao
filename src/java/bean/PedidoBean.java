@@ -90,7 +90,7 @@ public class PedidoBean extends GenBean<Pedido, PedidoDao>{
       }
 
     public List<SelectItem> getClientesSelect() throws ErroSistema {
-        if(clientesSelect == null){
+        
             clientesSelect=new ArrayList<SelectItem>();
             ClienteDao clientedao=new ClienteDao();
             List<Cliente> clientesLista=clientedao.listar();
@@ -103,7 +103,7 @@ public class PedidoBean extends GenBean<Pedido, PedidoDao>{
                 
             }
             
-        }
+        
         
         return clientesSelect;
     }
