@@ -32,8 +32,8 @@
 
                     </p:selectOneMenu>
                     <p:commandButton value="Adicionar" actionListener="#{pedidoBean.adicionarProdutos()}" update="fr">
-                       
-                
+
+
                     </p:commandButton>
                 </h:panelGroup>
 
@@ -45,29 +45,27 @@
 
                 <p:ajax event="cellEdit" listener="#{pedidoBean.calcularTotal()}" update="fr:total" />
 
-                <p:column headerText="Descrição">
-                    <h:outputText value="#{prod.produto.descricao}" />   
+                <p:column style="width: 25%; text-align:center" headerText="Descrição">
+                    <h:outputText style="width: 25%; text-align:center" value="#{prod.produto.descricao}" /> 
                 </p:column>
 
-                <p:column headerText="Quantidade">
+                <p:column style="width: 25%; text-align:center" headerText="Quantidade">
                     <p:cellEditor>
                         <f:facet name="output"><h:outputText value="#{prod.quantidade}" /></f:facet>
                         <f:facet name="input"><p:inputText id="modelIn" value="#{prod.quantidade}" style="width:100%"/></f:facet>
                     </p:cellEditor>
                 </p:column>
 
-                <p:column headerText="Preço">
-                    <p:cellEditor>
-                        <f:facet name="output"><h:outputText value="#{prod.preco}" /></f:facet>
-                        <f:facet name="input"><p:inputText id="model" value="#{prod.preco}" style="width:100%"/></f:facet>
-                    </p:cellEditor>
+                <p:column style="width: 25%; text-align:center" headerText="Preço unitario">
+                    <h:outputText style="width: 25%; text-align:center" value="#{prod.produto.preco}" >
+                        <f:convertNumber currencyCode="BRL" type="currency"/>
+                    </h:outputText>                    
+
                 </p:column>
 
-                <p:column headerText="Desconto">
-                    <p:cellEditor>
-                        <f:facet name="output"><h:outputText value="#{prod.desconto}" /></f:facet>
-                        <f:facet name="input"><p:inputText id="mod" value="#{prod.desconto}" style="width:100%"/></f:facet>
-                    </p:cellEditor>
+                <p:column style="width: 25%; text-align:center" headerText="Desconto %">
+                    <h:outputText style="width: 25%; text-align:center" value="#{prod.desconto}" />
+
                 </p:column>
 
 
@@ -82,7 +80,7 @@
 
 
             <h:panelGrid columns="2" style="margin-left:500px" rendered="#{pedidoBean.busca == false}">
-                
+
                 <p:outputLabel value="Total pedido"></p:outputLabel>
                 <p:outputLabel id="total" value="#{pedidoBean.entidade.valorTotal}">
                     <f:convertNumber currencyCode="BRL" type="currency"/>
@@ -93,7 +91,7 @@
 
 
             <p:dataTable value="#{pedidoBean.entidades}" var="pedidos" rendered="#{pedidoBean.busca == true}">
-                
+
                 <p:column style="width: 25%; text-align:center" headerText="ID" sortBy="#{pedidos.id}" filterBy="#{pedidos.id}">
                     <h:outputText value="#{pedidos.id}"></h:outputText>
                 </p:column>
@@ -103,11 +101,11 @@
                 </p:column>
                 <p:column style="width: 25%; text-align:center" headerText="Valor total" sortBy="#{pedidos.valorTotal}">
                     <h:outputText value="#{pedidos.valorTotal}">
-                    <f:convertNumber currencyCode="BRL" type="currency"/>
+                        <f:convertNumber currencyCode="BRL" type="currency"/>
                     </h:outputText>
                 </p:column>
 
-                
+
 
 
                 <p:column style="width: 25%; text-align:center">
@@ -129,8 +127,8 @@
 
             </p:confirmDialog>
         </p:fieldset>
-        
-        
+
+
     </h:form>
 </ui:decorate>
 

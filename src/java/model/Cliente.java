@@ -19,42 +19,52 @@ import javax.persistence.Table;
  * @author Viviane
  */
 @Entity
-@Table(name="cliente")
+@Table(name = "cliente")
 public class Cliente implements Serializable {
-    
-    
+
     private static final Long serialVersionUID = 1L;
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name="id")
+    @Column(name = "id")
     private Long id;
-    
-    @Column(name="nome")
+
+    @Column(name = "nome")
     private String nome;
-    
-    @Column(name="cpf")
+
+    @Column(name = "cpf")
     private String cpf;
-    
-    @Column(name="logradouro")
+
+    @Column(name = "logradouro")
     private String logradouro;
-    
-    @Column(name="numero")
+
+    @Column(name = "numero")
     private String numero;
-    
-    @Column(name="bairro")
+
+    @Column(name = "bairro")
     private String bairro;
-    
-    @Column(name="localidade")
+
+    @Column(name = "localidade")
     private String localidade;
-    
-    @Column(name="cep")
+
+    @Column(name = "cep")
     private String cep;
-    
-    @Column(name="uf")
+
+    @Column(name = "uf")
     private String uf;
 
+    @Column(name = "desconto")
+    private double desconto;
+
     public Cliente() {
+    }
+
+    public double getDesconto() {
+        return desconto;
+    }
+
+    public void setDesconto(double desconto) {
+        this.desconto = desconto;
     }
 
     public Long getId() {
@@ -131,16 +141,17 @@ public class Cliente implements Serializable {
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 59 * hash + Objects.hashCode(this.id);
-        hash = 59 * hash + Objects.hashCode(this.nome);
-        hash = 59 * hash + Objects.hashCode(this.cpf);
-        hash = 59 * hash + Objects.hashCode(this.logradouro);
-        hash = 59 * hash + Objects.hashCode(this.numero);
-        hash = 59 * hash + Objects.hashCode(this.bairro);
-        hash = 59 * hash + Objects.hashCode(this.localidade);
-        hash = 59 * hash + Objects.hashCode(this.cep);
-        hash = 59 * hash + Objects.hashCode(this.uf);
+        int hash = 5;
+        hash = 37 * hash + Objects.hashCode(this.id);
+        hash = 37 * hash + Objects.hashCode(this.nome);
+        hash = 37 * hash + Objects.hashCode(this.cpf);
+        hash = 37 * hash + Objects.hashCode(this.logradouro);
+        hash = 37 * hash + Objects.hashCode(this.numero);
+        hash = 37 * hash + Objects.hashCode(this.bairro);
+        hash = 37 * hash + Objects.hashCode(this.localidade);
+        hash = 37 * hash + Objects.hashCode(this.cep);
+        hash = 37 * hash + Objects.hashCode(this.uf);
+        hash = 37 * hash + (int) (Double.doubleToLongBits(this.desconto) ^ (Double.doubleToLongBits(this.desconto) >>> 32));
         return hash;
     }
 
@@ -156,6 +167,9 @@ public class Cliente implements Serializable {
             return false;
         }
         final Cliente other = (Cliente) obj;
+        if (Double.doubleToLongBits(this.desconto) != Double.doubleToLongBits(other.desconto)) {
+            return false;
+        }
         if (!Objects.equals(this.nome, other.nome)) {
             return false;
         }
@@ -185,6 +199,4 @@ public class Cliente implements Serializable {
         }
         return true;
     }
-
-    
 }

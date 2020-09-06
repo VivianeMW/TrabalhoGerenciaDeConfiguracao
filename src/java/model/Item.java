@@ -33,9 +33,6 @@ public class Item implements Serializable {
     @Column(name = "quantidade")
     private int quantidade;
 
-    @Column(name = "preco")
-    private double preco;
-    
     @Column(name = "desconto")
     private double desconto;
 
@@ -77,22 +74,13 @@ public class Item implements Serializable {
         this.produto = produto;
     }
 
-    public double getPreco() {
-        return preco;
-    }
-
-    public void setPreco(double preco) {
-        this.preco = preco;
-    }
-
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 19 * hash + Objects.hashCode(this.id);
-        hash = 19 * hash + this.quantidade;
-        hash = 19 * hash + (int) (Double.doubleToLongBits(this.preco) ^ (Double.doubleToLongBits(this.preco) >>> 32));
-        hash = 19 * hash + (int) (Double.doubleToLongBits(this.desconto) ^ (Double.doubleToLongBits(this.desconto) >>> 32));
-        hash = 19 * hash + Objects.hashCode(this.produto);
+        int hash = 7;
+        hash = 79 * hash + Objects.hashCode(this.id);
+        hash = 79 * hash + this.quantidade;
+        hash = 79 * hash + (int) (Double.doubleToLongBits(this.desconto) ^ (Double.doubleToLongBits(this.desconto) >>> 32));
+        hash = 79 * hash + Objects.hashCode(this.produto);
         return hash;
     }
 
@@ -111,9 +99,6 @@ public class Item implements Serializable {
         if (this.quantidade != other.quantidade) {
             return false;
         }
-        if (Double.doubleToLongBits(this.preco) != Double.doubleToLongBits(other.preco)) {
-            return false;
-        }
         if (Double.doubleToLongBits(this.desconto) != Double.doubleToLongBits(other.desconto)) {
             return false;
         }
@@ -125,7 +110,5 @@ public class Item implements Serializable {
         }
         return true;
     }
-
-   
 
 }

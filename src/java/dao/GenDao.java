@@ -13,9 +13,11 @@ import java.util.List;
  * @author viviane.wehrmeister
  */
 public interface GenDao<E> {//E representa minha entidade
-    
+
     public E salvar(E entidade) throws ErroSistema;
+
     public void deletar(E entidade) throws ErroSistema;
+
     public List<E> listar() throws ErroSistema;
-    
+
 }

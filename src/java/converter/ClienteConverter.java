@@ -16,31 +16,30 @@ import model.Cliente;
  *
  * @author Viviane
  */
-@FacesConverter(forClass=Cliente.class)
+@FacesConverter(forClass = Cliente.class)
 public class ClienteConverter implements Converter {
 
     @Override
     public Object getAsObject(FacesContext fc, UIComponent uic, String string) {
-    if(string != null && string.trim().length()>0){
-        Long codigo=Long.valueOf(string);
-        ClienteDao clienteDao=new ClienteDao();
-        return clienteDao.consultarPorId(codigo);
-    }
-
+        if (string != null && string.trim().length() > 0) {
+            Long codigo = Long.valueOf(string);
+            ClienteDao clienteDao = new ClienteDao();
+            return clienteDao.consultarPorId(codigo);
+        }
 
 //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    return null;
+        return null;
     }
 
     @Override
     public String getAsString(FacesContext fc, UIComponent uic, Object ocliente) {
-        if(ocliente != null){
-            Cliente cliente = (Cliente)ocliente;
+        if (ocliente != null) {
+            Cliente cliente = (Cliente) ocliente;
             return cliente.getId().toString();
         }
-        
+
 //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-     return null;
+        return null;
     }
-    
+
 }

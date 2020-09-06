@@ -9,20 +9,13 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-
 import javax.persistence.ManyToOne;
-
 import javax.persistence.OneToMany;
-
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -30,11 +23,10 @@ import javax.persistence.Transient;
  *
  * @author Viviane
  */
-
 @Entity
-@Table(name="pedido")
+@Table(name = "pedido")
 public class Pedido implements Serializable {
- 
+
     private static final Long serialVersionUID = 1L;
 
     @Id
@@ -100,12 +92,12 @@ public class Pedido implements Serializable {
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 67 * hash + Objects.hashCode(this.id);
-        hash = 67 * hash + (int) (Double.doubleToLongBits(this.valorTotal) ^ (Double.doubleToLongBits(this.valorTotal) >>> 32));
-        hash = 67 * hash + Objects.hashCode(this.produto);
-        hash = 67 * hash + Objects.hashCode(this.cliente);
-        hash = 67 * hash + Objects.hashCode(this.itensPedido);
+        int hash = 3;
+        hash = 73 * hash + Objects.hashCode(this.id);
+        hash = 73 * hash + (int) (Double.doubleToLongBits(this.valorTotal) ^ (Double.doubleToLongBits(this.valorTotal) >>> 32));
+        hash = 73 * hash + Objects.hashCode(this.produto);
+        hash = 73 * hash + Objects.hashCode(this.cliente);
+        hash = 73 * hash + Objects.hashCode(this.itensPedido);
         return hash;
     }
 
@@ -139,6 +131,4 @@ public class Pedido implements Serializable {
         return true;
     }
 
-    
-   
 }
