@@ -20,7 +20,7 @@ import javax.persistence.Table;
  */
 
 @Entity
-@Table(name="produt")
+@Table(name="produto")
 public class Produto implements Serializable {
     
     private static final Long serialVersionUID = 1L;
@@ -36,8 +36,18 @@ public class Produto implements Serializable {
     @Column(name="fabricante")
     private String fabricante;
 
+    @Column(name="quantidade")
+    private int quantidade;
+    
+    @Column(name="desconto")
+    private double desconto;
+    
+    @Column(name="valortotal")
+    private double valorTotal;
+    
     public Produto() {
     }
+    
 
     public Long getId() {
         return id;
@@ -63,12 +73,39 @@ public class Produto implements Serializable {
         this.fabricante = fabricante;
     }
 
+    public int getQuantidade() {
+        return quantidade;
+    }
+
+    public void setQuantidade(int quantidade) {
+        this.quantidade = quantidade;
+    }
+
+    public double getDesconto() {
+        return desconto;
+    }
+
+    public void setDesconto(double desconto) {
+        this.desconto = desconto;
+    }
+
+    public double getValorTotal() {
+        return valorTotal;
+    }
+
+    public void setValorTotal(double valorTotal) {
+        this.valorTotal = valorTotal;
+    }
+
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 59 * hash + Objects.hashCode(this.id);
-        hash = 59 * hash + Objects.hashCode(this.descricao);
-        hash = 59 * hash + Objects.hashCode(this.fabricante);
+        int hash = 3;
+        hash = 53 * hash + Objects.hashCode(this.id);
+        hash = 53 * hash + Objects.hashCode(this.descricao);
+        hash = 53 * hash + Objects.hashCode(this.fabricante);
+        hash = 53 * hash + this.quantidade;
+        hash = 53 * hash + (int) (Double.doubleToLongBits(this.desconto) ^ (Double.doubleToLongBits(this.desconto) >>> 32));
+        hash = 53 * hash + (int) (Double.doubleToLongBits(this.valorTotal) ^ (Double.doubleToLongBits(this.valorTotal) >>> 32));
         return hash;
     }
 
@@ -84,6 +121,15 @@ public class Produto implements Serializable {
             return false;
         }
         final Produto other = (Produto) obj;
+        if (this.quantidade != other.quantidade) {
+            return false;
+        }
+        if (Double.doubleToLongBits(this.desconto) != Double.doubleToLongBits(other.desconto)) {
+            return false;
+        }
+        if (Double.doubleToLongBits(this.valorTotal) != Double.doubleToLongBits(other.valorTotal)) {
+            return false;
+        }
         if (!Objects.equals(this.descricao, other.descricao)) {
             return false;
         }
@@ -95,5 +141,7 @@ public class Produto implements Serializable {
         }
         return true;
     }
+
+   
 
 }

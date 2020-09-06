@@ -1,0 +1,136 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:decorate xmlns="http://www.w3.org/1999/xhtml"
+             xmlns:h="http://xmlns.jcp.org/jsf/html"
+             xmlns:p="http://primefaces.org/ui"
+             xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+             template="template.xhtml"
+             xmlns:sc="http://xmlns.jcp.org/jsf/composite/sccomp"
+             xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <h:form id="fr">
+        <p:messages showDetail="true"></p:messages>
+        <p:fieldset legend="Pedido">
+            <sc:toolbarCrud crudBean="#{pedidoBean}">
+
+            </sc:toolbarCrud>
+            <p:panelGrid columns="2" rendered="#{pedidoBean.busca == false}">
+
+
+
+                <h:outputLabel for="aa" value="Cliente"></h:outputLabel>
+                <p:selectOneMenu id="aa" value="#{pedidoBean.entidade.cliente}">
+                    <f:selectItem noSelectionOption="true" itemLabel = "Selecione um cliente" itemValue = "" />
+                    <f:selectItems value="#{pedidoBean.clientesSelect}"/>
+                </p:selectOneMenu>
+
+                <p:outputLabel for="g" value="Produto"></p:outputLabel>
+                <h:panelGroup>
+                    <p:selectOneMenu id="g" value="#{pedidoBean.entidade.produto}">
+                        <f:selectItem noSelectionOption="true" itemLabel = "Selecione um produto" itemValue = "" />
+                        <f:selectItems itemLabel="Selecione o produto" value="#{pedidoBean.produtosSelect}" />
+
+                    </p:selectOneMenu>
+                    <p:commandButton value="Adicionar" actionListener="#{pedidoBean.adicionarProdutos()}" update="fr">
+                       
+                
+                    </p:commandButton>
+                </h:panelGroup>
+
+
+            </p:panelGrid>
+
+
+            <p:dataTable id="pr" editable="true" editMode="cell" value="#{pedidoBean.entidade.itensPedido}" var="prod" rendered="#{pedidoBean.busca == false}">
+
+                <p:ajax event="cellEdit" listener="#{pedidoBean.calcularTotal()}" update="fr:total" />
+
+                <p:column headerText="Descrição">
+                    <h:outputText value="#{prod.produto.descricao}" />   
+                </p:column>
+
+                <p:column headerText="Quantidade">
+                    <p:cellEditor>
+                        <f:facet name="output"><h:outputText value="#{prod.quantidade}" /></f:facet>
+                        <f:facet name="input"><p:inputText id="modelIn" value="#{prod.quantidade}" style="width:100%"/></f:facet>
+                    </p:cellEditor>
+                </p:column>
+
+                <p:column headerText="Preço">
+                    <p:cellEditor>
+                        <f:facet name="output"><h:outputText value="#{prod.preco}" /></f:facet>
+                        <f:facet name="input"><p:inputText id="model" value="#{prod.preco}" style="width:100%"/></f:facet>
+                    </p:cellEditor>
+                </p:column>
+
+                <p:column headerText="Desconto">
+                    <p:cellEditor>
+                        <f:facet name="output"><h:outputText value="#{prod.desconto}" /></f:facet>
+                        <f:facet name="input"><p:inputText id="mod" value="#{prod.desconto}" style="width:100%"/></f:facet>
+                    </p:cellEditor>
+                </p:column>
+
+
+                <p:column style="width: 25%; text-align:center">
+
+                    <p:commandButton  icon="ui-icon-trash" action="#{pedidoBean.removerProdutos(prod)}" update="fr">
+                        <p:confirm header="Confirmação" message="Deseja excluir?" icon="ui-icon-alert"/> 
+                    </p:commandButton>
+                </p:column>
+
+            </p:dataTable>
+
+
+            <h:panelGrid columns="2" style="margin-left:500px" rendered="#{pedidoBean.busca == false}">
+                
+                <p:outputLabel value="Total pedido"></p:outputLabel>
+                <p:outputLabel id="total" value="#{pedidoBean.entidade.valorTotal}">
+                    <f:convertNumber currencyCode="BRL" type="currency"/>
+                </p:outputLabel>
+
+            </h:panelGrid>
+
+
+
+            <p:dataTable value="#{pedidoBean.entidades}" var="pedidos" rendered="#{pedidoBean.busca == true}">
+                
+                <p:column style="width: 25%; text-align:center" headerText="ID" sortBy="#{pedidos.id}" filterBy="#{pedidos.id}">
+                    <h:outputText value="#{pedidos.id}"></h:outputText>
+                </p:column>
+
+                <p:column style="width: 25%; text-align:center" headerText="Cliente Nome" sortBy="#{pedidos.cliente.nome}" filterBy="#{pedidos.cliente.nome}">
+                    <h:outputText value="#{pedidos.cliente.nome}"></h:outputText>
+                </p:column>
+                <p:column style="width: 25%; text-align:center" headerText="Valor total" sortBy="#{pedidos.valorTotal}">
+                    <h:outputText value="#{pedidos.valorTotal}">
+                    <f:convertNumber currencyCode="BRL" type="currency"/>
+                    </h:outputText>
+                </p:column>
+
+                
+
+
+                <p:column style="width: 25%; text-align:center">
+                    <p:commandButton icon="ui-icon-pencil" action="#{pedidoBean.editar(pedidos)}" update="@form">
+                        <p:confirm header="Confirmação" message="Deseja editar?" icon="ui-icon-alert"/> 
+                    </p:commandButton>
+                    <p:commandButton  icon="ui-icon-trash" action="#{pedidoBean.deletar(pedidos)}" update="@form">
+                        <p:confirm header="Confirmação" message="Deseja excluir?" icon="ui-icon-alert"/> 
+                    </p:commandButton>
+                </p:column>
+
+            </p:dataTable>
+
+            <p:confirmDialog global="true">
+
+                <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"></p:commandButton>
+
+                <p:commandButton value="Nao" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"></p:commandButton>
+
+            </p:confirmDialog>
+        </p:fieldset>
+        
+        
+    </h:form>
+</ui:decorate>
+
